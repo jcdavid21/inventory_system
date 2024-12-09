@@ -22,31 +22,50 @@
       </div>
     </div>
     <div class="forms">
-        <div class="form-content">
-          <div class="login-form">
+      <div class="form-content">
+        <div class="login-form">
             <div class="title">Login</div>
-          <form action="#">
-            <div class="input-boxes">
-              <div class="input-box">
-                <i class="fa-solid fa-user"></i>
-                <input type="text" placeholder="Enter your username" id="uname" required>
-              </div>
-              <div class="input-box">
-                <i class="fas fa-lock"></i>
-                <input type="password" placeholder="Enter your password" id="password" required>
-              </div>
-              <!-- <div class="text"><a href="#">Forgot password?</a></div> -->
-              <div class="button input-box">
-                <input type="submit" value="Sumbit" id="submit">
-              </div>
-              <!-- <div class="text sign-up-text">Don't have an account? <label for="flip">Sigup now</label></div> -->
+            <form action="#">
+                <div class="input-boxes">
+                    <div class="input-box">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="Enter your username" id="uname" required>
+                    </div>
+                    <div class="input-box">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Enter your password" id="password" required>
+                        <span class="toggle-password" onclick="togglePassword()">
+                            <i id="password-icon" class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="button input-box">
+                        <input type="submit" value="Submit" id="submit">
+                    </div>
+                </div>
+            </form>
             </div>
-        </form>
-      </div>
+        </div>
     </div>
+
     </div>
   </div>
 
   <script src="./jquery/login.js"></script>
+  <script>
+    function togglePassword() {
+    const passwordField = document.getElementById("password");
+    const passwordIcon = document.getElementById("password-icon");
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+        passwordIcon.classList.remove("fa-eye");
+        passwordIcon.classList.add("fa-eye-slash");
+    } else {
+        passwordField.type = "password";
+        passwordIcon.classList.remove("fa-eye-slash");
+        passwordIcon.classList.add("fa-eye");
+    }
+}
+
+  </script>
 </body>
 </html>
