@@ -39,7 +39,6 @@
 
                 $sessionData = array(
                     "account_id" => $data["account_id"],
-                    "role_id" => $data["role_id"],
                     "username" =>  $data["acc_username"],
                     "full_name" => $data["full_name"],
                     "contact" => $data["contact"],
