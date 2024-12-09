@@ -103,7 +103,7 @@ require_once("../backend/config/config.php");
                                         <tr>
                                             <th>
                                                 <div class="img-con" style="height: 70px; width: 70px;">
-                                                    <img src="<?php echo $data["item_img"] ?>" alt=""
+                                                    <img src="../<?php echo str_replace("../", "", $data["item_img"]) ?>" alt=""
                                                     style="object-fit: contain; width: 100%; height: 100%;">
                                                 </div>
                                             </th>

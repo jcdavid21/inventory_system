@@ -22,6 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    if($quantityInStock > 100)
+    {
+        echo "Quantity in stock must be less than or equal to 100.";
+        exit;
+    }
+
     // Update the equipment in the database
     $query = "UPDATE tbl_equipments SET 
         name = ?, 

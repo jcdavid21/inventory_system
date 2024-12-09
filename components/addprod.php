@@ -63,7 +63,7 @@ require_once("../backend/config/config.php");
                                 <!-- Product Name -->
                                 <div class="col-md-6 mt-2">
                                     <label for="prod_name" class="form-label fw-bold">Equipment Name</label>
-                                    <input required type="text" name="prod_name" class="form-control" id="prod_name" placeholder="Enter product name" oninput="validInput(this)">
+                                    <input required type="text" name="prod_name" class="form-control" id="prod_name" placeholder="Enter product name" >
                                 </div>
 
                                 <!-- Category -->

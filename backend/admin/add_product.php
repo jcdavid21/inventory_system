@@ -26,6 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    if($quantityInStock > 100)
+    {
+        echo "Quantity in stock must be less than or equal to 100.";
+        exit;
+    }
+
     // Additional validations
     if ($quantityInStock <= 0) {
         echo "Quantity in stock must be greater than equal to 1.";
