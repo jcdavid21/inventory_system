@@ -36,9 +36,10 @@ $(document).ready(()=>{
                             showConfirmButton: false,
                             timer: 3000,
                           }).then((result) => {
-                            const data = JSON.parse(response);
-                            localStorage.setItem("adminDetails", response);
-                            window.location.href = "./components/dashboard.php";
+                            if(result){
+                                localStorage.setItem("adminDetails", response);
+                                window.location.href = "./components/dashboard.php";
+                            }
                         });
                     }
                 },

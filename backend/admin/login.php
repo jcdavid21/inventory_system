@@ -37,11 +37,10 @@
                 $stmt2->bind_param("isss", $data["account_id"], $data["acc_username"], $date, $activity);
                 $stmt2->execute();
 
-                $role_id = $data["role_id"];
                 $sessionData = array(
                     "account_id" => $data["account_id"],
                     "role_id" => $data["role_id"],
-                    "username" =>  $data["ac_username"],
+                    "username" =>  $data["acc_username"],
                     "full_name" => $data["full_name"],
                     "contact" => $data["contact"],
                     "gender" => $data["gender"],
