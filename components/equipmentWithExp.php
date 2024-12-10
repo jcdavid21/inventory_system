@@ -79,6 +79,7 @@ require_once("../backend/config/config.php");
                                     <tbody>
                                         <?php
                                             $lowStockItems = [];
+                                            $expirationItems = [];
                                             $query = "SELECT te.*, ts.status_name FROM tbl_equipments te
                                             JOIN tbl_equipment_status ts ON te.status_id = ts.status_id
                                             WHERE te.expiration_date IS NOT NULL";
@@ -98,6 +99,14 @@ require_once("../backend/config/config.php");
                                                         'name' => $data['name'],
                                                         'quantity' => $data['quantity_in_stock'],
                                                     ];
+                                                }
+
+                                                // Check if the expiration date is within 2 days
+                                                $expirationDate = new DateTime($data["expiration_date"]);
+                                                $minExpirationDate = new DateTime();
+                                                $minExpirationDate->modify('+2 days');
+                                                if ($expirationDate < $minExpirationDate && $data["status_id"] == 1) {
+                                                    $expirationItems[] = $data;
                                                 }
                                         ?>
                                         <tr>
@@ -313,6 +322,7 @@ require_once("../backend/config/config.php");
                 <!-- /.container-fluid -->
 
                 <input type="hidden" id="lowStockItems" value='<?php echo json_encode($lowStockItems); ?>'>
+                <input type="hidden" id="expirationItems" value='<?php echo json_encode($expirationItems); ?>'>
 
             </div>
             <!-- End of Main Content -->
@@ -369,6 +379,7 @@ require_once("../backend/config/config.php");
     </script>
     <script>
         const lowStockItems = JSON.parse(document.getElementById('lowStockItems').value);
+        const expirationItems = JSON.parse(document.getElementById('expirationItems').value);
         if (lowStockItems.length > 0) {
             let lowStockItemsString = '';
             lowStockItems.forEach(item => {
@@ -380,6 +391,41 @@ require_once("../backend/config/config.php");
                 text: lowStockItemsString,
             });
         }
+
+        if (expirationItems.length > 0) {
+            let expirationItemsString = '';
+            expirationItems.forEach(item => {
+                expirationItemsString += `${item.name} (Expires on ${item.expiration_date})\n`;
+            });
+            Swal.fire({
+                icon: 'warning',
+                title: 'Expiring Items',
+                text: expirationItemsString,
+            }).then((result)=>{
+                if(result.isConfirmed){
+                    $.ajax({
+                        url: "../backend/admin/updateExpiryItem.php",
+                        type: "POST",
+                        data: {
+                            expirationItems: expirationItems
+                        },
+                        success: function(data){
+                            if(data == "success"){
+                                Swal.fire({
+                                    title: 'Expiring Items disable',
+                                    text: 'Expiring items have been disabled.',
+                                }).then((result)=>{
+                                    if(result){
+                                        location.reload();
+                                    }
+                                });
+                            }
+                        }
+                    })
+                }
+            })
+        }
+        
     </script>
 
     <script src="../scripts/toggle.js"></script>

@@ -32,8 +32,7 @@ $(document).ready(()=>{
                         Swal.fire({
                             title: "Success!",
                             text: "Successfully Log in",
-                            
-                            showConfirmButton: false,
+                            showConfirmButton: true,
                             timer: 3000,
                           }).then((result) => {
                             if(result){
